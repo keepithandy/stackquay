@@ -43,6 +43,7 @@ def main():
         ("DJANGO_CORS_ALLOWED_ORIGINS", "http://frontend.example.test"),
         ("TOKEN_TTL_HOURS", "0"),
         ("DATABASE_URL", "mysql://localhost/db"),
+        ("EMAIL_USE_SSL", "1"),
     ):
         result = subprocess.run(  # noqa: S603
             [sys.executable, "manage.py", "check"],
@@ -52,7 +53,7 @@ def main():
         )
         if result.returncode == 0:
             raise SystemExit(f"FAIL: insecure production setting accepted: {setting}")
-    print("PASS: production checks and 10 invalid-configuration checks.")
+    print("PASS: production checks and 11 invalid-configuration checks.")
 
 
 if __name__ == "__main__":

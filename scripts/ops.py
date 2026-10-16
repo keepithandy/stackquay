@@ -36,6 +36,18 @@ def main():
 
     if args.command == "deploy":
         run("build", "--pull", "web")
+        run(
+            "run",
+            "--rm",
+            "--no-deps",
+            "proxy",
+            "caddy",
+            "validate",
+            "--config",
+            "/etc/caddy/Caddyfile",
+            "--adapter",
+            "caddyfile",
+        )
         run("up", "-d", "--wait", "db", "redis")
         run("run", "--rm", "web", "python", "manage.py", "migrate", "--noinput")
         run("run", "--rm", "web", "python", "manage.py", "collectstatic", "--noinput")

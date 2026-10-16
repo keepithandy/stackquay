@@ -445,3 +445,13 @@ class BackendTests(TestCase):
         result = JsonFormatter().format(record)
         self.assertNotIn("secret password", result)
         self.assertEqual(json.loads(result)["exception_type"], "ValueError")
+
+    def test_account_link_tokens_are_redacted_in_logs(self):
+        path = "/accounts/verify/NA/private-verification-token/"
+        with patch("core.middleware.logger.info") as log:
+            response = self.client.get(path)
+        self.assertEqual(log.call_args.kwargs["extra"]["path"], "/accounts/verify/[redacted]/")
+        self.assertEqual(response["Cache-Control"], "no-store")
+        self.assertEqual(response["Referrer-Policy"], "no-referrer")
+        record = logging.LogRecord("django.request", logging.ERROR, "", 1, path, (), None)
+        self.assertNotIn("private-verification-token", JsonFormatter().format(record))

@@ -9,3 +9,6 @@ __pycache__
 staticfiles
 backups
 dist
+.task-tmp
+htmlcov
+*.log
