@@ -1,0 +1,4 @@
+{% extends "accounts/base.html" %}{% block content %}
+{% if validlink %}<h1>Choose a new password</h1><form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Reset password</button></form>
+{% else %}<h1>Link unavailable</h1><p>This reset link is invalid or expired. Request a new password reset in your app.</p>{% endif %}
+{% endblock %}

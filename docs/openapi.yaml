@@ -1,0 +1,673 @@
+openapi: 3.0.3
+info:
+  title: HandyBase API
+  version: 1.0.0
+  description: Users, private records, and administration for your next app.
+paths:
+  /api/v1/auth/change-password/:
+    post:
+      operationId: api_v1_auth_change_password_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+          description: ''
+  /api/v1/auth/login/:
+    post:
+      operationId: api_v1_auth_login_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+  /api/v1/auth/logout/:
+    post:
+      operationId: api_v1_auth_logout_create
+      tags:
+      - api
+      security:
+      - bearerAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/me/:
+    get:
+      operationId: api_v1_auth_me_retrieve
+      tags:
+      - api
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_v1_auth_me_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserRequest'
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/auth/password-reset/:
+    post:
+      operationId: api_v1_auth_password_reset_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+          description: ''
+  /api/v1/auth/password-reset/confirm/:
+    post:
+      operationId: api_v1_auth_password_reset_confirm_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetConfirmRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+          description: ''
+  /api/v1/auth/register/:
+    post:
+      operationId: api_v1_auth_register_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+          description: ''
+  /api/v1/auth/resend-verification/:
+    post:
+      operationId: api_v1_auth_resend_verification_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+          description: ''
+  /api/v1/auth/verify/:
+    post:
+      operationId: api_v1_auth_verify_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+          description: ''
+  /api/v1/records/:
+    get:
+      operationId: api_v1_records_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+      tags:
+      - api
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecordList'
+          description: ''
+    post:
+      operationId: api_v1_records_create
+      parameters:
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+          description: ''
+  /api/v1/records/{id}/:
+    get:
+      operationId: api_v1_records_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this record.
+        required: true
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+      tags:
+      - api
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+          description: ''
+    put:
+      operationId: api_v1_records_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this record.
+        required: true
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+          description: ''
+    patch:
+      operationId: api_v1_records_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this record.
+        required: true
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRecordRequest'
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+          description: ''
+    delete:
+      operationId: api_v1_records_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this record.
+        required: true
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+      tags:
+      - api
+      security:
+      - bearerAuth: []
+      responses:
+        '204':
+          description: No response body
+  /health/live/:
+    get:
+      operationId: health_live_retrieve
+      tags:
+      - health
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+          description: ''
+  /health/ready/:
+    get:
+      operationId: health_ready_retrieve
+      tags:
+      - health
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+          description: ''
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+          description: ''
+components:
+  schemas:
+    ChangePasswordRequest:
+      type: object
+      properties:
+        current_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 128
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 128
+      required:
+      - current_password
+      - password
+    Detail:
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+      - detail
+    EmailRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+      required:
+      - email
+    Health:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+      - status
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 128
+      required:
+      - password
+      - username
+    PaginatedRecordList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+    PatchedRecordRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        body:
+          type: string
+          maxLength: 10000
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+    PatchedUserRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+    Record:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 200
+        body:
+          type: string
+          maxLength: 10000
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - title
+      - updated_at
+    RecordRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        body:
+          type: string
+          maxLength: 10000
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+      required:
+      - title
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 128
+      required:
+      - email
+      - password
+      - username
+    ResetConfirmRequest:
+      type: object
+      properties:
+        uid:
+          type: string
+          minLength: 1
+          maxLength: 64
+        token:
+          type: string
+          minLength: 1
+          maxLength: 128
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+          maxLength: 128
+      required:
+      - password
+      - token
+      - uid
+    StatusEnum:
+      enum:
+      - draft
+      - active
+      - archived
+      type: string
+      description: |-
+        * `draft` - Draft
+        * `active` - Active
+        * `archived` - Archived
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - expires_at
+      - token
+      - user
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+        email:
+          type: string
+          format: email
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - date_joined
+      - email
+      - id
+      - username
+    VerifyRequest:
+      type: object
+      properties:
+        uid:
+          type: string
+          minLength: 1
+          maxLength: 64
+        token:
+          type: string
+          minLength: 1
+          maxLength: 128
+      required:
+      - token
+      - uid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque

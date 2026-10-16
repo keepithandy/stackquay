@@ -1,0 +1,7 @@
+# Overlay used only by CI. Bind to loopback; bypass the certificate proxy.
+services:
+  web:
+    ports:
+      - "127.0.0.1:8000:8000"
+  proxy:
+    profiles: ["production"]

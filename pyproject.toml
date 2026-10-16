@@ -1,0 +1,22 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["**/migrations/**"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "S"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests.py" = ["S105", "S106"]
+"**/test_*.py" = ["S105", "S106"]
+"config/settings.py" = ["S105"]
+"scripts/setup.py" = ["UP036"]
+
+[tool.coverage.run]
+source = ["core", "config"]
+omit = ["*/migrations/*", "*/tests.py", "*/test_*.py", "config/wsgi.py", "config/asgi.py"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85

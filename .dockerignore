@@ -1,0 +1,11 @@
+.git
+.venv
+.env
+.env.*
+*.sqlite3*
+__pycache__
+.coverage*
+.ruff_cache
+staticfiles
+backups
+dist

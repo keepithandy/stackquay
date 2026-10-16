@@ -1,0 +1,92 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  DJANGO_DEBUG: "1"
+  DJANGO_SECRET_KEY: ci-only-not-for-deployment-abcdefghijklmnopqrstuvwxyz-0123456789
+  DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,testserver
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --require-hashes -r requirements-dev.txt
+      - run: ruff check . && ruff format --check .
+      - run: python manage.py makemigrations --check --dry-run
+      - run: coverage run manage.py test --noinput && coverage report
+      - run: python scripts/check_production.py
+      - run: python manage.py spectacular --file /tmp/openapi.yaml --validate --fail-on-warn
+      - run: diff -u docs/openapi.yaml /tmp/openapi.yaml
+      - run: pip-audit --require-hashes -r requirements.txt --disable-pip
+  windows-install:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - run: python scripts/setup.py
+      - run: .venv/Scripts/python.exe manage.py test --noinput
+  postgres-redis:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: handybase
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: handybase
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U handybase" --health-interval 5s
+          --health-timeout 3s --health-retries 20
+      redis:
+        image: redis:8-alpine
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://handybase:ci-only-password@localhost:5432/handybase
+      REDIS_URL: redis://localhost:6379/0
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --require-hashes -r requirements-dev.txt
+      - run: python manage.py migrate --noinput
+      - run: python manage.py test --noinput
+  production-container:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_DEBUG: "0"
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - run: python scripts/production_env.py --domain ci.example.test --smtp-host smtp.example.test --from-email backend@example.test
+      - run: python scripts/ops.py --ci deploy
+      - run: python scripts/smoke.py
+      - run: docker compose --env-file .env.production -f compose.yaml -f compose.ci.yaml exec -T web python manage.py check --deploy --fail-level WARNING
+      - run: docker compose --env-file .env.production -f compose.yaml -f compose.ci.yaml exec -T web python scripts/container_check.py
+      - run: python scripts/ops.py --ci backup --output backups/ci.dump
+      - run: python scripts/ops.py --ci restore backups/ci.dump --confirm-replace-database
+      - run: python scripts/smoke.py
+      - run: docker compose --env-file .env.production -f compose.yaml -f compose.ci.yaml exec -T web python scripts/container_check.py --check-restored
+      - if: failure()
+        run: docker compose --env-file .env.production -f compose.yaml -f compose.ci.yaml logs --tail 100 web db redis
+      - if: always()
+        run: docker compose --env-file .env.production -f compose.yaml -f compose.ci.yaml down -v

@@ -1,0 +1,5 @@
+{% extends "accounts/base.html" %}{% block content %}
+{% if verified %}<h1>Account verified</h1><p>You can now log in through your app or the API.</p>
+{% elif valid %}<h1>Verify your account</h1><p>Confirm this email address to finish signing up.</p><form method="post">{% csrf_token %}<button type="submit">Verify account</button></form>
+{% else %}<h1>Link unavailable</h1><p>This link is invalid, has expired, or was already used. Request a new verification email in your app.</p>{% endif %}
+{% endblock %}
