@@ -23,7 +23,8 @@ def main():
             parser.error("SMTP settings must be simple single-line values.")
     db_password = secrets.token_hex(32)
     redis_password = secrets.token_hex(32)
-    text = f"""# HandyBase production configuration. Keep private; never commit this file.
+    text = f"""# Stackquay production configuration. Keep private; never commit this file.
+STACKQUAY_PROJECT_NAME=stackquay
 DOMAIN={domain}
 DJANGO_DEBUG=0
 DJANGO_SECRET_KEY={secrets.token_urlsafe(64)}
@@ -34,10 +35,10 @@ PUBLIC_BASE_URL=https://{domain}
 TRUST_PROXY=1
 ALLOW_REGISTRATION=0
 TOKEN_TTL_HOURS=168
-POSTGRES_DB=handybase
-POSTGRES_USER=handybase
+POSTGRES_DB=stackquay
+POSTGRES_USER=stackquay
 POSTGRES_PASSWORD={db_password}
-DATABASE_URL=postgresql://handybase:{db_password}@db:5432/handybase
+DATABASE_URL=postgresql://stackquay:{db_password}@db:5432/stackquay
 REDIS_PASSWORD={redis_password}
 REDIS_URL=redis://:{redis_password}@redis:6379/0
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend

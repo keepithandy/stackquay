@@ -18,7 +18,7 @@ def main():
         "DJANGO_ALLOWED_HOSTS": "api.example.test,localhost,127.0.0.1",
         "DJANGO_CSRF_TRUSTED_ORIGINS": "https://api.example.test",
         "DJANGO_CORS_ALLOWED_ORIGINS": "",
-        "DATABASE_URL": "postgresql://handybase:example@localhost:5432/handybase",
+        "DATABASE_URL": "postgresql://stackquay:example@localhost:5432/stackquay",
         "REDIS_URL": "redis://localhost:6379/0",
         "PUBLIC_BASE_URL": "https://api.example.test",
         "EMAIL_BACKEND": "django.core.mail.backends.smtp.EmailBackend",

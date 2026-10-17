@@ -1,6 +1,6 @@
 # Operations
 
-Run from the deployed project directory. Commands assume `.env.production`; pass `--env-file PATH` to `scripts/ops.py` if you keep configuration elsewhere. Do not run two deployment/restore operations concurrently.
+Run from the deployed project directory. Existing installations must preserve their original Compose project identifier using `STACKQUAY_PROJECT_NAME` in `.env.production` until a tested storage migration is completed. Commands assume `.env.production`; pass `--env-file PATH` to `scripts/ops.py` if you keep configuration elsewhere. Do not run two deployment/restore operations concurrently.
 
 ## Health and logs
 
@@ -34,7 +34,7 @@ For important data, use a daily schedule and a retention policy appropriate to t
 Restore replaces current database contents. Use it only for the intended deployment and after preserving any newer data you need.
 
 ```sh
-python3 scripts/ops.py restore backups/handybase-YOUR_TIMESTAMP.dump \
+python3 scripts/ops.py restore backups/stackquay-YOUR_TIMESTAMP.dump \
   --confirm-replace-database
 python3 scripts/smoke.py https://api.your-domain.com
 ```

@@ -1,4 +1,4 @@
-name: handybase
+name: ${STACKQUAY_PROJECT_NAME:-stackquay}
 services:
   db:
     image: postgres:17-alpine
@@ -27,10 +27,10 @@ services:
       retries: 20
   web:
     build: .
-    image: handybase:1.0.0
+    image: stackquay:1.0.0
     restart: unless-stopped
     env_file:
-      - ${HANDYBASE_ENV_FILE:-.env.production}
+      - ${STACKQUAY_ENV_FILE:-.env.production}
     depends_on:
       db:
         condition: service_healthy

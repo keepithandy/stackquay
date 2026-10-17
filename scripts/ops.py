@@ -26,7 +26,7 @@ def main():
     env_file = (ROOT / args.env_file).resolve()
     if not env_file.is_file():
         parser.error("Environment file is missing. Run scripts/production_env.py first.")
-    os.environ["HANDYBASE_ENV_FILE"] = str(env_file)
+    os.environ["STACKQUAY_ENV_FILE"] = str(env_file)
     base = ["docker", "compose", "--env-file", str(env_file), "-f", "compose.yaml"]
     if args.ci:
         base += ["-f", "compose.ci.yaml"]
@@ -65,7 +65,7 @@ def main():
         run("up", "-d", "--wait", "--wait-timeout", "180")
         print("Deployment started and health checks passed. Create your admin account next.")
     elif args.command == "backup":
-        name = args.output or f"backups/handybase-{datetime.now(UTC):%Y%m%dT%H%M%S%fZ}.dump"
+        name = args.output or f"backups/stackquay-{datetime.now(UTC):%Y%m%dT%H%M%S%fZ}.dump"
         target = (ROOT / name).resolve()
         target.parent.mkdir(parents=True, exist_ok=True)
         try:

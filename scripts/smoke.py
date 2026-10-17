@@ -18,7 +18,7 @@ def main():
             payload = json.load(response)
             assert response.status == 200 and payload["status"] == "ok", payload
         print(f"PASS {path}")
-    print("HandyBase is live and its dependencies are ready.")
+    print("Stackquay is live and its dependencies are ready.")
 
 
 if __name__ == "__main__":

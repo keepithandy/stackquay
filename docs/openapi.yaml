@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: HandyBase API
+  title: Stackquay API
   version: 1.0.0
   description: Users, private records, and administration for your next app.
 paths:

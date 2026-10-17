@@ -1,11 +1,11 @@
 # Stackquay
 
-> Formerly **HandyBase**. Stackquay is the owner-approved successor identity; external name clearance remains outstanding. The repository is still `keepithandy/handybase`, and version 1.0.0 was released under the HandyBase name. No GitHub repository rename or new release has occurred.
+> **Stackquay** is the approved project name. The repository is now `keepithandy/stackquay`. The v1.0.0 release artifacts remain unchanged; this naming update does not publish a new version. External trademark and domain/package namespace clearance are still pending.
 
 **Self-hosted application infrastructure for your next app.** User accounts, private data, an admin dashboard, and a practical path from local install to a single-server production deployment.
 
-[![CI](https://github.com/keepithandy/handybase/actions/workflows/ci.yml/badge.svg)](https://github.com/keepithandy/handybase/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-1.0.0-c2e7a8)](https://github.com/keepithandy/handybase/releases/tag/v1.0.0)
+[![CI](https://github.com/keepithandy/stackquay/actions/workflows/ci.yml/badge.svg)](https://github.com/keepithandy/stackquay/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/version-1.0.0-c2e7a8)](https://github.com/keepithandy/stackquay/releases/tag/v1.0.0)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## What you get
@@ -23,8 +23,8 @@ Built with Python 3.12, Django 5.2 LTS and Django REST Framework. SQLite keeps l
 Install Python 3.12 and Git first. No database server is needed for local development.
 
 ```text
-git clone https://github.com/keepithandy/handybase.git
-cd handybase
+git clone https://github.com/keepithandy/stackquay.git
+cd stackquay
 python scripts/setup.py
 ```
 
@@ -74,7 +74,7 @@ PowerShell examples, every endpoint, error shapes, and account flows are in [the
 ## Guides
 
 - [Phase 01 development roadmap](docs/development/phase-01/ROADMAP.md) — frozen baseline, Plex-style authorization gates, release engineering and runtime compatibility.
-- [Brand transition record](docs/BRAND_TRANSITION.md) — Stackquay naming status, compatibility guarantees and pending GitHub slug change.
+- [Identity and deployment compatibility](docs/BRAND_TRANSITION.md) — project naming, persistent-volume safeguards, and outstanding clearance checks.
 
 
 | Guide | What it covers |
@@ -90,6 +90,9 @@ PowerShell examples, every endpoint, error shapes, and account flows are in [the
 | [Changelog](CHANGELOG.md) | Release history |
 
 ## Production
+
+**Existing deployment warning:** Changing the Docker Compose project name changes its named-volume namespace. If updating an earlier deployment, follow [identity and compatibility](docs/BRAND_TRANSITION.md) before deploying, retaining the former Compose project identifier and existing credentials until data migration is verified.
+
 
 The production package targets **one Linux server running Docker Compose**. It includes a reverse proxy, HTTPS certificates, database and cache containers, a non-root application container, persistent data, and a deployment helper.
 
@@ -122,6 +125,6 @@ Use the Python executable inside `.venv`, or activate the environment first. CI 
 
 ## 1.0 scope
 
-The Stackquay project builds on the HandyBase 1.0 starter for small applications that need users, private CRUD data, and trusted staff administration. Version 1.0 does not include a separate customer frontend, billing, organizations, social login, MFA, file uploads, background jobs, or an audit history of API edits. Admin actions use Django's built-in change log. Application throttles reduce routine abuse; internet-scale traffic needs additional edge controls and capacity planning.
+Stackquay is a backend starter for small applications that need users, private CRUD data, and trusted staff administration. Version 1.0 does not include a separate customer frontend, billing, organizations, social login, MFA, file uploads, background jobs, or an audit history of API edits. Admin actions use Django's built-in change log. Application throttles reduce routine abuse; internet-scale traffic needs additional edge controls and capacity planning.
 
 MIT licensed. See [LICENSE](LICENSE).

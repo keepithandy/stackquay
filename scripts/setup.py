@@ -21,7 +21,7 @@ def main():
     parser.add_argument("--runtime-only", action="store_true", help="Skip development tools")
     args = parser.parse_args()
     if sys.version_info < (3, 12):
-        raise SystemExit("Stackquay (formerly HandyBase) requires Python 3.12 or newer.")
+        raise SystemExit("Stackquay (formerly Stackquay) requires Python 3.12 or newer.")
     temp = ROOT / ".task-tmp"
     temp.mkdir(exist_ok=True)
     os.environ["TMP"] = os.environ["TEMP"] = str(temp)

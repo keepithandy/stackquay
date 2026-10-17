@@ -68,7 +68,7 @@ Generate a key with `.venv/bin/python -c "import secrets; print(secrets.token_ur
 | `EMAIL_HOST`, `EMAIL_PORT` | Empty, `587` | SMTP endpoint |
 | `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` | Empty | SMTP credentials |
 | `EMAIL_USE_TLS`, `EMAIL_USE_SSL` | `1`, `0` | STARTTLS vs direct TLS; do not enable both |
-| `DEFAULT_FROM_EMAIL` | `handybase@localhost` | Sender address; use a verified production sender |
+| `DEFAULT_FROM_EMAIL` | `stackquay@localhost` | Sender address; use a verified production sender |
 
 Production requirements are enforced at startup. See [PRODUCTION.md](PRODUCTION.md).
 

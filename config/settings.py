@@ -149,7 +149,7 @@ EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "0") == "1"
 if EMAIL_USE_TLS and EMAIL_USE_SSL:
     raise ImproperlyConfigured("Set only one of EMAIL_USE_TLS and EMAIL_USE_SSL.")
 EMAIL_TIMEOUT = 10
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "handybase@localhost")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "stackquay@localhost")
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
@@ -214,7 +214,7 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "core.exceptions.exception_handler",
 }
 SPECTACULAR_SETTINGS = {
-    "TITLE": "HandyBase API",
+    "TITLE": "Stackquay API",
     "DESCRIPTION": "Users, private records, and administration for your next app.",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
