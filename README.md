@@ -1,6 +1,8 @@
-# HandyBase
+# Stackquay
 
-**A complete backend starter for your next app.** User accounts, private data, an admin dashboard, and a practical path from local install to a single-server production deployment.
+> Formerly **HandyBase**. Stackquay is the owner-approved successor identity; external name clearance remains outstanding. The repository is still `keepithandy/handybase`, and version 1.0.0 was released under the HandyBase name. No GitHub repository rename or new release has occurred.
+
+**Self-hosted application infrastructure for your next app.** User accounts, private data, an admin dashboard, and a practical path from local install to a single-server production deployment.
 
 [![CI](https://github.com/keepithandy/handybase/actions/workflows/ci.yml/badge.svg)](https://github.com/keepithandy/handybase/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/badge/version-1.0.0-c2e7a8)](https://github.com/keepithandy/handybase/releases/tag/v1.0.0)
@@ -64,12 +66,16 @@ curl -X POST http://127.0.0.1:8000/api/v1/auth/login/ \
 curl -X POST http://127.0.0.1:8000/api/v1/records/ \
   -H 'Authorization: Bearer YOUR_TOKEN' \
   -H 'Content-Type: application/json' \
-  -d '{"title":"First record","body":"Hello HandyBase","status":"active"}'
+  -d '{"title":"First record","body":"Hello Stackquay","status":"active"}'
 ```
 
 PowerShell examples, every endpoint, error shapes, and account flows are in [the API guide](docs/API.md). Tokens expire after seven days by default. Password changes and resets revoke all API sessions. The data API always scopes records to their owner, including staff accounts; trusted administrators manage all records through `/admin/`.
 
 ## Guides
+
+- [Phase 01 development roadmap](docs/development/phase-01/ROADMAP.md) — frozen baseline, Plex-style authorization gates, release engineering and runtime compatibility.
+- [Brand transition record](docs/BRAND_TRANSITION.md) — Stackquay naming status, compatibility guarantees and pending GitHub slug change.
+
 
 | Guide | What it covers |
 | --- | --- |
@@ -116,6 +122,6 @@ Use the Python executable inside `.venv`, or activate the environment first. CI 
 
 ## 1.0 scope
 
-HandyBase is a starter for small applications that need users, private CRUD data, and trusted staff administration. Version 1.0 does not include a separate customer frontend, billing, organizations, social login, MFA, file uploads, background jobs, or an audit history of API edits. Admin actions use Django's built-in change log. Application throttles reduce routine abuse; internet-scale traffic needs additional edge controls and capacity planning.
+The Stackquay project builds on the HandyBase 1.0 starter for small applications that need users, private CRUD data, and trusted staff administration. Version 1.0 does not include a separate customer frontend, billing, organizations, social login, MFA, file uploads, background jobs, or an audit history of API edits. Admin actions use Django's built-in change log. Application throttles reduce routine abuse; internet-scale traffic needs additional edge controls and capacity planning.
 
 MIT licensed. See [LICENSE](LICENSE).

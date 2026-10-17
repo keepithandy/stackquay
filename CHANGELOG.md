@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — Stackquay brand transition (not a published version)
+
+- Adopt **Stackquay** as the project-facing successor name to HandyBase in the README, local homepage, installer messages, and planning documentation.
+- Retain the GitHub repository slug `keepithandy/handybase` until an authorized GitHub Settings rename is performed.
+- Preserve the historical HandyBase v1.0.0 release, API routes, Django models and migrations, and deployment configuration. No version 1.1 release is implied.
+- Formal trademark and package/domain registry availability checks remain outstanding; see `docs/BRAND_TRANSITION.md`.
+
+
 ## 1.0.0 — 2026-10-16
 
 First complete HandyBase starter release.
