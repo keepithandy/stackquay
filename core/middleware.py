@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.http import JsonResponse
 
-logger = logging.getLogger("handybase.requests")
+logger = logging.getLogger("stackquay.requests")
 
 
 class JsonFormatter(logging.Formatter):

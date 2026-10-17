@@ -5,6 +5,7 @@
 - Standardize the product name, repository links, local setup messages, OpenAPI title and account emails as Stackquay.
 - Update new-install Docker/production defaults, test database identifiers, release artifact naming and operations documentation.
 - Document how existing deployments must retain their previous Compose project name and credentials until a deliberate data migration is complete.
+- The renamed verification-token signing namespace invalidates previously issued email-verification links; request a new message if needed.
 - Preserve the historical v1.0.0 tag and published assets; no new release was created.
 - Commercial naming clearance remains pending.
 

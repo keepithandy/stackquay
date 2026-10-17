@@ -29,6 +29,10 @@ Existing DB names, database users and passwords do **not** have to match the new
 
 The supplied `scripts/ops.py` and Compose file now use the `STACKQUAY_ENV_FILE` helper-variable interface. Invoke the helper rather than depending on retired environment-variable overrides.
 
+## Verification link compatibility
+
+The email-verification token signing namespace is updated to Stackquay. **Already issued verification links may no longer validate.** An affected user should request a fresh verification message. Password reset uses Django's independent default token generator and is not renamed here. This does not change stored user accounts or database migrations.
+
 ## Protected interfaces
 
 - Django app labels and `core/migrations/` remain unchanged.

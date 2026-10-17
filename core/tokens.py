@@ -2,7 +2,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 
 class VerificationTokenGenerator(PasswordResetTokenGenerator):
-    key_salt = "handybase.email-verification"
+    key_salt = "stackquay.email-verification"
 
     def _make_hash_value(self, user, timestamp):
         return (

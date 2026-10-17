@@ -3,13 +3,13 @@ from django.contrib.auth.admin import UserAdmin
 
 from .models import AccessToken, Record, User
 
-admin.site.site_header = "HandyBase administration"
-admin.site.site_title = "HandyBase"
+admin.site.site_header = "Stackquay administration"
+admin.site.site_title = "Stackquay"
 admin.site.index_title = "Manage users and records"
 
 
 @admin.register(User)
-class HandyUserAdmin(UserAdmin):
+class StackquayUserAdmin(UserAdmin):
     list_display = ["username", "email", "is_staff", "is_active", "date_joined"]
     add_fieldsets = UserAdmin.add_fieldsets + (("Contact", {"fields": ("email",)}),)
 
