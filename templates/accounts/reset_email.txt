@@ -1,4 +1,4 @@
-You requested a password reset for your HandyBase account.
+You requested a password reset for your Stackquay account.
 
 Open this link to choose a new password:
 {{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}

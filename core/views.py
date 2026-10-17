@@ -37,7 +37,7 @@ from .serializers import (
 )
 from .tokens import verification_tokens
 
-logger = logging.getLogger("handybase.accounts")
+logger = logging.getLogger("stackquay.accounts")
 GENERIC_EMAIL = "If the account is eligible, an email with next steps has been sent."
 
 
@@ -53,7 +53,7 @@ def verification_email(user):
     token = verification_tokens.make_token(user)
     url = f"{settings.PUBLIC_BASE_URL}/accounts/verify/{uid}/{token}/"
     send_mail(
-        "Verify your HandyBase account",
+        "Verify your Stackquay account",
         f"Open this link and press Verify account to finish signing up:\n{url}\n\n"
         "This link expires in one hour. If you did not request this, ignore this email.",
         settings.DEFAULT_FROM_EMAIL,

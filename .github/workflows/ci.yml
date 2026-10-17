@@ -45,19 +45,19 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_USER: handybase
+          POSTGRES_USER: stackquay
           POSTGRES_PASSWORD: ci-only-password
-          POSTGRES_DB: handybase
+          POSTGRES_DB: stackquay
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U handybase" --health-interval 5s
+          --health-cmd "pg_isready -U stackquay" --health-interval 5s
           --health-timeout 3s --health-retries 20
       redis:
         image: redis:8-alpine
         ports: ["6379:6379"]
         options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 20
     env:
-      DATABASE_URL: postgresql://handybase:ci-only-password@localhost:5432/handybase
+      DATABASE_URL: postgresql://stackquay:ci-only-password@localhost:5432/stackquay
       REDIS_URL: redis://localhost:6379/0
     steps:
       - uses: actions/checkout@v7.0.1

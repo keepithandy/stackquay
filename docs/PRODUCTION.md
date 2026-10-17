@@ -1,6 +1,8 @@
 # Production deployment
 
-HandyBase 1.0 targets a single Linux server using Docker Compose v2. The repository includes everything needed to run the application stack. It does not create a hosting account, server, domain, or SMTP account.
+> **Existing deployment warning:** Docker Compose project names determine named-volume identities. Before upgrading an earlier installation, read [identity and compatibility](BRAND_TRANSITION.md), preserve the previous Compose project identifier via `STACKQUAY_PROJECT_NAME` in `.env.production`, and verify a restorable off-server backup. Changing the name alone does not migrate data.
+
+Stackquay targets a single Linux server using Docker Compose v2. The repository includes everything needed to run the application stack. It does not create a hosting account, server, domain, or SMTP account.
 
 ## Before deployment
 
@@ -19,8 +21,8 @@ Two CPU cores and 2 GB RAM are a practical starting point for a small deployment
 Clone with your GitHub account, or transfer the release archive to your server:
 
 ```sh
-git clone https://github.com/keepithandy/handybase.git
-cd handybase
+git clone https://github.com/keepithandy/stackquay.git
+cd stackquay
 git checkout v1.0.0
 ```
 

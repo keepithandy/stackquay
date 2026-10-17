@@ -1,9 +1,9 @@
 # Stackquay — Phase 01: Release Foundation
 
 > **Status:** PLANNED; P1 implementation NOT authorized by the roadmap.
-> **Identity:** Stackquay is the owner-approved successor project name (formerly HandyBase). Trademark/domain/package-name clearance is still pending.
-> **Repository:** `keepithandy/handybase` (actual default branch `main`; GitHub slug remains unchanged).
-> **Current release:** HandyBase v1.0.0. **Target:** technical foundations for v1.1.0; no release authorized.
+> **Identity:** Stackquay is the owner-approved project name; external trademark/domain/package registry clearance remains pending.
+> **Repository:** `keepithandy/stackquay` (actual GitHub rename completed; default branch `main`).
+> **Current release:** historical v1.0.0 tag. **Target:** technical foundations for v1.1.0; no release authorized.
 > **Created:** 2026-10-17.
 
 ## 0. Objective and non-goals
@@ -12,22 +12,22 @@ Establish a reproducible release process and explicit supported-runtime contract
 
 **In scope:** immutable baseline audit; release-tag/ZIP naming correction; Python 3.12 runtime acceptance policy; automated tests and reproducible reports; review and authorization gates.
 
-**Out of scope:** GitHub repository rename; publishing a v1.1.0 release; commercial deployment; authentication changes; database migrations; API/schema changes; frontend product; CLI generation; background jobs; billing; organization support; unexplained dependency upgrades. The Stackquay branding decision does **not** authorize these changes.
+**Out of scope:** additional repository administration; publishing a v1.1.0 release; commercial deployment; authentication changes; database migrations; API/schema changes; frontend product; CLI generation; background jobs; billing; organization support; unexplained dependency upgrades. The Stackquay branding decision does **not** authorize these changes.
 
 ## 1. Frozen starting state
 
 | Field | Observed baseline |
 | --- | --- |
-| Repository | `keepithandy/handybase` |
+| Repository | `keepithandy/stackquay` |
 | Default branch | `main` |
-| Last published release | `v1.0.0` (HandyBase) |
+| Last published release | `v1.0.0` (original published assets preserved) |
 | Audited starting commit, prior to branding PR | `f730c6947615038fff8c0de74b97942b5d5e4e3a` |
 | Runtime tested by CI | Python 3.12 |
 | Backend stack | Django 5.2 LTS / DRF |
 | Storage | SQLite development, PostgreSQL production; Redis production |
 | Deployment | Single-server Docker Compose, Caddy, Gunicorn |
 
-**Important:** After the branding PR merges, P1-00 must re-fetch `main` and explicitly record a **new** P1 engineering baseline. Do not silently treat the pre-brand commit as the new HEAD. The historical commit above remains immutable comparison evidence.
+**Important:** P1-00 must re-fetch `main` after this identity cleanup merges and explicitly freeze the **new** engineering baseline. The earlier commit remains historical evidence, not the current HEAD. The historical commit above remains immutable comparison evidence.
 
 Read the following files before making P1 implementation changes: `.github/workflows/ci.yml`, `.github/workflows/release.yml`, `scripts/setup.py`, `scripts/check_production.py`, `pyproject.toml`, `requirements*.txt`, `core/tests.py`, `README.md`, `CHANGELOG.md`, `docs/INSTALL.md`.
 
@@ -70,9 +70,9 @@ Produce a concise `P1-00-PREFLIGHT.md`: baseline, findings with severity, propos
 
 ### P1-01: Release contract
 
-Known baseline defect: `.github/workflows/release.yml` currently hardcodes `handybase-1.0.0.zip` and prefix `handybase-1.0.0/` for any chosen tag.
+Original defect: the earlier release workflow hardcoded a single archive version. The identity update introduces tag-derived Stackquay filenames, but the release path has not been independently exercised.
 
-After authorization, replace hardcoding with tag-derived **compatibility naming** (`handybase-<version>.zip`, until the GitHub repo/package transition is separately approved). Accept stable `v1.1.0`-style tags; reject missing/invalid tags; bind the validated tag to the checked-out commit; require suitable successful CI on that SHA; write matching ZIP/prefix and `SHA256SUMS`.
+During P1-01, review and test the new tag-derived artifact names (`stackquay-<version>.zip`). Verify stable-tag checks, exact tagged commit selection, passing CI for that commit, matching ZIP prefix and SHA256SUMS, and safe non-overwriting behavior. Until then, this fix is implemented but NOT VERIFIED for publication.
 
 Test correct result for `v1.1.0`, malformed/missing tags, mismatched SHA/CI, and archived content. Never publish to test this step; keep historical `v1.0.0` assets unchanged.
 
@@ -113,7 +113,7 @@ Report exact changed files, baseline/final SHAs, tests, failed/retried results, 
 | Branding breaks persistence | Keep `core` labels, migrations, API, DB and Docker deployment identities stable |
 | Existing release assets overwritten | Never modify `v1.0.0`; no publication during P1 |
 | Incomplete validation | Log `PASS/FAIL/NOT RUN` plus CI evidence |
-| GitHub repo slug conflicts with UI brand | Keep actual clone URL and document transition until GitHub rename authorized and performed |
+| GitHub repository address and links diverge | Check actual clone URL, badges and release links against the current repo |
 
 ## 5. Planned evidence directory
 
@@ -129,10 +129,10 @@ Never create empty evidence files or claim completion from planning alone.
 
 ## 6. First authorized action when ready
 
-**Authorize P1-00 (read-only):** inspect current HandyBase/Stackquay `main`, freeze exact HEAD and hashes, review release/archive and Python-runtime discrepancies, produce the preflight report, and stop. No code edits, PR merge, repository rename, release, or follow-on milestone execution.
+**Authorize P1-00 (read-only):** inspect current Stackquay `main`, freeze exact HEAD and hashes, review release/archive and Python-runtime discrepancies, produce the preflight report, and stop. No code edits, PR merge, repository rename, release, or follow-on milestone execution.
 
 ## 7. Status and brand relationship
 
 Stackquay is approved by the owner as the project identity. **External trademark, domain and package availability checks are incomplete.** See [Brand transition](../../BRAND_TRANSITION.md). Engineering milestones remain valid even if the final publishable name changes.
 
-**Roadmap status: PLANNED. The branding-only merge does not authorize P1 engineering implementation.**
+**Roadmap status: PLANNED. The name alignment does not authorize P1 engineering implementation.**

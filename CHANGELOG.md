@@ -1,16 +1,16 @@
 # Changelog
 
-## Unreleased — Stackquay brand transition (not a published version)
+## Unreleased — Stackquay identity alignment
 
-- Adopt **Stackquay** as the project-facing successor name to HandyBase in the README, local homepage, installer messages, and planning documentation.
-- Retain the GitHub repository slug `keepithandy/handybase` until an authorized GitHub Settings rename is performed.
-- Preserve the historical HandyBase v1.0.0 release, API routes, Django models and migrations, and deployment configuration. No version 1.1 release is implied.
-- Formal trademark and package/domain registry availability checks remain outstanding; see `docs/BRAND_TRANSITION.md`.
-
+- Standardize the product name, repository links, local setup messages, OpenAPI title and account emails as Stackquay.
+- Update new-install Docker/production defaults, test database identifiers, release artifact naming and operations documentation.
+- Document how existing deployments must retain their previous Compose project name and credentials until a deliberate data migration is complete.
+- Preserve the historical v1.0.0 tag and published assets; no new release was created.
+- Commercial naming clearance remains pending.
 
 ## 1.0.0 — 2026-10-16
 
-First complete HandyBase starter release.
+First complete Stackquay starter release.
 
 - Django account model with case-insensitive identity uniqueness, optional email-verified public signup, expiring hashed API tokens, profile updates, password changes and email recovery.
 - Owner-scoped records CRUD API with validation, search, filters, ordering and pagination.
