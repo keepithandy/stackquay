@@ -21,7 +21,7 @@ def main():
     parser.add_argument("--runtime-only", action="store_true", help="Skip development tools")
     args = parser.parse_args()
     if sys.version_info < (3, 12):
-        raise SystemExit("HandyBase requires Python 3.12 or newer.")
+        raise SystemExit("Stackquay (formerly HandyBase) requires Python 3.12 or newer.")
     temp = ROOT / ".task-tmp"
     temp.mkdir(exist_ok=True)
     os.environ["TMP"] = os.environ["TEMP"] = str(temp)
@@ -41,7 +41,7 @@ def main():
             env_file.chmod(0o600)
     run(str(executable), "manage.py", "migrate", "--noinput")
     run(str(executable), "manage.py", "check")
-    print("\nHandyBase is installed. Next run:")
+    print("\nStackquay is installed. Next run:")
     print(f'  "{executable}" manage.py createsuperuser')
     print(f'  "{executable}" manage.py runserver')
     print("\nOpen http://127.0.0.1:8000/ (PowerShell: add & before a quoted executable).")
