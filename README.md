@@ -1,22 +1,81 @@
+<a id="top"></a>
+
+<p align="center">
+  <img src="docs/assets/stackquay-banner.png" alt="Stackquay — Your app starts here. Self-hosted app infrastructure for accounts, private data, and operations." width="1200">
+</p>
+
+<div align="center">
+
 # Stackquay
 
-> **Stackquay** is the approved project name. The repository is now `keepithandy/stackquay`. The v1.0.0 release artifacts remain unchanged; this naming update does not publish a new version. External trademark and domain/package namespace clearance are still pending.
+**Self-hosted application infrastructure for your next app.**
 
-**Self-hosted application infrastructure for your next app.** User accounts, private data, an admin dashboard, and a practical path from local install to a single-server production deployment.
+User accounts. Private data. Trusted administration. A practical path to production.
 
-[![CI](https://github.com/keepithandy/stackquay/actions/workflows/ci.yml/badge.svg)](https://github.com/keepithandy/stackquay/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-1.0.0-c2e7a8)](https://github.com/keepithandy/stackquay/releases/tag/v1.0.0)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/keepithandy/stackquay/ci.yml?branch=main&style=for-the-badge&label=CI&labelColor=151933&color=18786c)](https://github.com/keepithandy/stackquay/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/keepithandy/stackquay?style=for-the-badge&label=release&labelColor=151933&color=3567a5)](https://github.com/keepithandy/stackquay/releases/latest)
+[![Deployment](https://img.shields.io/badge/deployment-self--hosted-7257a5?style=for-the-badge&labelColor=151933)](#production)
+[![License: MIT](https://img.shields.io/badge/license-MIT-18786c?style=for-the-badge&labelColor=151933)](LICENSE)
+
+![Python](https://img.shields.io/badge/Python-3.12-3567a5?style=flat-square&labelColor=151933&logo=python&logoColor=ffffff)
+![Django](https://img.shields.io/badge/Django-5.2%20LTS-18786c?style=flat-square&labelColor=151933&logo=django&logoColor=ffffff)
+![API](https://img.shields.io/badge/API-Django%20REST%20Framework-7257a5?style=flat-square&labelColor=151933)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-production-3567a5?style=flat-square&labelColor=151933&logo=postgresql&logoColor=ffffff)
+![Redis](https://img.shields.io/badge/Redis-shared%20throttles-7257a5?style=flat-square&labelColor=151933&logo=redis&logoColor=ffffff)
+![Docker](https://img.shields.io/badge/Docker-Compose-3567a5?style=flat-square&labelColor=151933&logo=docker&logoColor=ffffff)
+
+**[Quickstart](#install-and-run) · [Features](#what-you-get) · [API](#first-api-request) · [Architecture](#architecture) · [Deploy](#production) · [Guides](#guides)**
+
+</div>
+
+---
+
+Build on Python 3.12, Django 5.2 LTS, and Django REST Framework. Start locally with SQLite, then use the included Docker Compose stack for PostgreSQL, Redis, Gunicorn, and Caddy on one Linux server.
+
+**Start your own app:** use GitHub's **Use this template** button, or fork the repository. Keep the foundations and make the data model your own.
 
 ## What you get
 
-- **Accounts:** username/password login, optional email-verified signup, profile updates, password changes, email recovery, expiring sessions, and logout.
-- **Your data:** a private records API with create/read/update/delete, UUID identifiers, validation, search, status filters, sorting, and pagination.
-- **Administration:** Django's admin dashboard for users, groups, permissions, records, token revocation, and its built-in admin change history.
-- **Operations:** Postgres, Redis, Gunicorn, static assets, automatic HTTPS through Caddy, health probes, structured request logs, backups, and restore commands.
-- **A reusable repository:** locked dependencies with integrity hashes, database migrations, OpenAPI documentation, automated tests, Windows installation checks, production container checks, and release archives.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🔑 Accounts, ready to extend</h3>
+      Username/password login, optional email-verified signup, profiles, password changes, email recovery, expiring sessions, and logout.
+    </td>
+    <td width="50%" valign="top">
+      <h3>🗂️ Private data by default</h3>
+      An owner-scoped records API with create/read/update/delete, UUIDs, validation, search, status filters, sorting, and pagination.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🛠️ Trusted administration</h3>
+      Django's admin dashboard for users, groups, permissions, records, token revocation, and built-in admin change history.
+    </td>
+    <td width="50%" valign="top">
+      <h3>⚓ Practical operations</h3>
+      Automatic HTTPS through Caddy, static assets, health probes, structured request logs, and database backup and restore commands.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>📖 A documented foundation</h3>
+      Database migrations, interactive OpenAPI documentation, account and API guides, and deployment and operations instructions.
+    </td>
+    <td width="50%" valign="top">
+      <h3>🧪 Checks that travel with you</h3>
+      Locked dependencies with integrity hashes, automated tests, Windows installation checks, production container checks, and release archives.
+    </td>
+  </tr>
+</table>
 
-Built with Python 3.12, Django 5.2 LTS and Django REST Framework. SQLite keeps local setup small; production uses Postgres and Redis. Start another app with GitHub's **Use this template** button, or fork the repository.
+| Local development | Production package |
+| --- | --- |
+| Python + SQLite; no database server required | One Linux server with Docker Compose |
+| In-process cache; email printed in your terminal | PostgreSQL + Redis; SMTP configured by you |
+| Django development server | Caddy HTTPS proxy + Gunicorn application server |
+
+---
 
 ## Install and run
 
@@ -28,7 +87,7 @@ cd stackquay
 python scripts/setup.py
 ```
 
-The installer creates `.venv`, installs the locked dependencies, generates a private `.env` with a random secret, and creates the local database. Existing configuration is preserved. The repository is private, so GitHub must recognize your account to clone it.
+The installer creates `.venv`, installs the locked dependencies, generates a private `.env` with a random secret, and creates the local database. Existing configuration is preserved.
 
 **Windows PowerShell**
 
@@ -71,28 +130,38 @@ curl -X POST http://127.0.0.1:8000/api/v1/records/ \
 
 PowerShell examples, every endpoint, error shapes, and account flows are in [the API guide](docs/API.md). Tokens expire after seven days by default. Password changes and resets revoke all API sessions. The data API always scopes records to their owner, including staff accounts; trusted administrators manage all records through `/admin/`.
 
+## Architecture
+
+<p align="center">
+  <img src="docs/assets/stackquay-architecture.svg" alt="Production request flow: clients reach Caddy over HTTPS, Caddy proxies to Gunicorn and Django, and Django uses PostgreSQL for users, records and sessions, Redis for shared throttles, and an external SMTP service for account email." width="1200">
+</p>
+
+The API authenticates bearer tokens by their stored SHA-256 digests. Every records query starts with the authenticated owner. The admin uses Django sessions and model permissions; browser sessions live in the database, while Redis holds temporary throttle state.
+
+Extend the sample `Record` model or add your own resources. The [architecture guide](docs/ARCHITECTURE.md) walks through models, serializers, owner filtering, routes, migrations, and tests.
+
 ## Guides
-
-- [Phase 01 development roadmap](docs/development/phase-01/ROADMAP.md) — frozen baseline, Plex-style authorization gates, release engineering and runtime compatibility.
-- [Identity and deployment compatibility](docs/BRAND_TRANSITION.md) — project naming, persistent-volume safeguards, and outstanding clearance checks.
-
 
 | Guide | What it covers |
 | --- | --- |
-| [Installation](docs/INSTALL.md) | Windows, macOS/Linux, configuration, troubleshooting |
-| [User and admin instructions](docs/USER_GUIDE.md) | Accounts, records, staff roles, recovery |
-| [API reference](docs/API.md) | Authentication, endpoints, examples, errors |
-| [Production deployment](docs/PRODUCTION.md) | Server requirements, DNS, SMTP, HTTPS, deployment |
-| [Operations](docs/OPERATIONS.md) | Backups, restore, updates, logs, incident recovery |
-| [Architecture](docs/ARCHITECTURE.md) | Project layout and how to extend the starter |
-| [Security](SECURITY.md) | Security model, limits, reporting |
-| [Contributing](CONTRIBUTING.md) | Development checks and dependency updates |
-| [Changelog](CHANGELOG.md) | Release history |
+| 🚀 [Installation](docs/INSTALL.md) | Windows, macOS/Linux, configuration, troubleshooting |
+| 👤 [User and admin instructions](docs/USER_GUIDE.md) | Accounts, records, staff roles, recovery |
+| 🔌 [API reference](docs/API.md) | Authentication, endpoints, examples, errors |
+| 🌐 [Production deployment](docs/PRODUCTION.md) | Server requirements, DNS, SMTP, HTTPS, deployment |
+| ⚙️ [Operations](docs/OPERATIONS.md) | Backups, restore, updates, logs, incident recovery |
+| 🧱 [Architecture](docs/ARCHITECTURE.md) | Project layout and how to extend the starter |
+| 🛡️ [Security](SECURITY.md) | Security model, limits, reporting |
+| 🤝 [Contributing](CONTRIBUTING.md) | Development checks and dependency updates |
+| 🧭 [Phase 01 roadmap](docs/development/phase-01/ROADMAP.md) | Planned release foundation, authorization gates, runtime compatibility |
+| ⚓ [Identity and compatibility](docs/BRAND_TRANSITION.md) | Project naming, persistent volumes, outstanding clearance checks |
+| 📝 [Changelog](CHANGELOG.md) | Release history |
+
+---
 
 ## Production
 
-**Existing deployment warning:** Changing the Docker Compose project name changes its named-volume namespace. If updating an earlier deployment, follow [identity and compatibility](docs/BRAND_TRANSITION.md) before deploying, retaining the former Compose project identifier and existing credentials until data migration is verified.
-
+> [!WARNING]
+> **Updating an existing deployment?** Changing the Docker Compose project name changes its named-volume namespace. Follow [identity and compatibility](docs/BRAND_TRANSITION.md) before deploying, retaining the former Compose project identifier and existing credentials until data migration is verified.
 
 The production package targets **one Linux server running Docker Compose**. It includes a reverse proxy, HTTPS certificates, database and cache containers, a non-root application container, persistent data, and a deployment helper.
 
@@ -107,7 +176,10 @@ docker compose --env-file .env.production exec web python manage.py createsuperu
 python3 scripts/smoke.py https://api.your-domain.com
 ```
 
-Read the [production guide](docs/PRODUCTION.md) before running these commands on a server. **This repository does not provision a server or domain, and no hosted instance is included.** The deployment requires a real domain, reachable ports 80/443, and SMTP for account recovery. No paid service is required for local use.
+Read the [production guide](docs/PRODUCTION.md) before running these commands on a server.
+
+> [!IMPORTANT]
+> **Bring your own server and domain.** This repository does not provision them or include a hosted instance. Deployment requires a real domain, reachable ports 80/443, and SMTP for account recovery. No paid service is required for local use.
 
 ## Checks
 
@@ -127,4 +199,22 @@ Use the Python executable inside `.venv`, or activate the environment first. CI 
 
 Stackquay is a backend starter for small applications that need users, private CRUD data, and trusted staff administration. Version 1.0 does not include a separate customer frontend, billing, organizations, social login, MFA, file uploads, background jobs, or an audit history of API edits. Admin actions use Django's built-in change log. Application throttles reduce routine abuse; internet-scale traffic needs additional edge controls and capacity planning.
 
+<details>
+<summary><strong>Project identity and release history</strong></summary>
+
+**Stackquay** is the approved project name, and the repository is `keepithandy/stackquay`. The historical v1.0.0 release artifacts remain unchanged; this README and branding update does not publish a new version. External trademark and domain/package namespace clearance are still pending. See [identity and deployment compatibility](docs/BRAND_TRANSITION.md).
+
+</details>
+
+## License
+
 MIT licensed. See [LICENSE](LICENSE).
+
+---
+
+<div align="center">
+  <img src="docs/assets/stackquay-logo.png" alt="Stackquay stacked S logo" width="88">
+  <h3>Your app starts here.</h3>
+  <p><strong>Stackquay</strong> · Accounts · Private data · Operations</p>
+  <p><a href="#top">Back to top ↑</a> · <a href="docs/INSTALL.md">Get started</a> · <a href="CONTRIBUTING.md">Contribute</a></p>
+</div>

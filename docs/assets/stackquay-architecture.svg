@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="350" viewBox="0 0 1200 350" role="img" aria-labelledby="title desc">
+  <title id="title">Stackquay production architecture</title>
+  <desc id="desc">Client requests enter Caddy over HTTPS, then reach Gunicorn and Django. Django connects to PostgreSQL for users, records and sessions, Redis for shared throttles, and an external SMTP service for account email.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1">
+      <stop stop-color="#0c1224"/>
+      <stop offset="1" stop-color="#151933"/>
+    </linearGradient>
+    <linearGradient id="accent" x2="1">
+      <stop stop-color="#61ead6"/>
+      <stop offset=".5" stop-color="#69a9ff"/>
+      <stop offset="1" stop-color="#aa8eff"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="m1 1 5 3-5 3" fill="none" stroke="#7797bf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="1198" height="348" rx="20" fill="url(#bg)" stroke="#2b3653"/>
+  <rect x="31" y="29" width="40" height="3" rx="1.5" fill="url(#accent)"/>
+  <g font-family="DejaVu Sans, Arial, sans-serif">
+    <text x="87" y="36" fill="#95a8c8" font-size="13" font-weight="600" letter-spacing="2.5">THE PRODUCTION STACK</text>
+    <text x="1168" y="36" text-anchor="end" fill="#95a8c8" font-size="12" letter-spacing="1">SINGLE-SERVER DOCKER COMPOSE</text>
+    <g fill="#111d33" stroke="#2f4562">
+      <rect x="32" y="120" width="170" height="110" rx="14"/>
+      <rect x="254" y="120" width="200" height="110" rx="14"/>
+      <rect x="508" y="110" width="245" height="130" rx="14" stroke="#61ead6" stroke-opacity=".6"/>
+      <rect x="830" y="65" width="338" height="66" rx="12"/>
+      <rect x="830" y="146" width="338" height="66" rx="12"/>
+      <rect x="830" y="227" width="338" height="66" rx="12" stroke-dasharray="5 5"/>
+    </g>
+    <g fill="none" stroke="#7797bf" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M202 175h48"/>
+      <path d="M454 175h50"/>
+      <path d="M753 175h34V98h39"/>
+      <path d="M787 175v4h39"/>
+      <path d="M787 179v81h39"/>
+    </g>
+    <g text-anchor="middle">
+      <text x="117" y="161" fill="#69a9ff" font-size="12" letter-spacing="2">YOUR APP</text>
+      <text x="117" y="192" fill="#f2f5ff" font-size="22" font-weight="700">Client</text>
+      <text x="354" y="162" fill="#f2f5ff" font-size="24" font-weight="700">Caddy</text>
+      <text x="354" y="190" fill="#b8c9e2" font-size="14">HTTPS reverse proxy</text>
+      <text x="630" y="144" fill="#61ead6" font-size="12" letter-spacing="2">APPLICATION</text>
+      <text x="630" y="178" fill="#f2f5ff" font-size="23" font-weight="700">Gunicorn + Django</text>
+      <text x="630" y="207" fill="#b8c9e2" font-size="14">REST API + admin</text>
+    </g>
+    <text x="851" y="91" fill="#69a9ff" font-size="18" font-weight="700">PostgreSQL</text>
+    <text x="851" y="114" fill="#b8c9e2" font-size="13">Users, records, and browser sessions</text>
+    <text x="851" y="172" fill="#aa8eff" font-size="18" font-weight="700">Redis</text>
+    <text x="851" y="195" fill="#b8c9e2" font-size="13">Shared throttle state + readiness checks</text>
+    <text x="851" y="253" fill="#61ead6" font-size="18" font-weight="700">SMTP</text>
+    <text x="851" y="276" fill="#b8c9e2" font-size="13">External email service configured by you</text>
+    <text x="33" y="316" fill="#95a8c8" font-size="13">Start locally with SQLite. Use PostgreSQL and Redis in production.</text>
+  </g>
+</svg>
