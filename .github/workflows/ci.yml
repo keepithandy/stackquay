@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: actions/setup-python@v7.0.0
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.12"
           cache: pip
@@ -34,7 +34,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: actions/setup-python@v7.0.0
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.12"
       - run: python scripts/setup.py
@@ -61,7 +61,7 @@ jobs:
       REDIS_URL: redis://localhost:6379/0
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: actions/setup-python@v7.0.0
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.12"
           cache: pip
@@ -74,7 +74,7 @@ jobs:
       DJANGO_DEBUG: "0"
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: actions/setup-python@v7.0.0
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.12"
       - run: python scripts/production_env.py --domain ci.example.test --smtp-host smtp.example.test --from-email backend@example.test
